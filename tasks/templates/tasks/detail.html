@@ -3,5 +3,50 @@
 {% block content %}
 <div class="m-5">
 
+    {% if errors %}
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form action="{% url 'tasks:update' task.id %}" method="post">
+        {% csrf_token %}
+
+        <div class="input-group input-group-lg mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Title</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Large" value="{{task.title}}" id="title", name="title">
+        </div>
+
+        <div class="input-group input-group-lg mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Description</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Large" value="{{task.description}}" id="description" name="description">
+        </div>
+
+        <p>by: {{task.email}}</p>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+
+    </form>
+
+    <div class="mt-2">
+        <a href="{% url 'tasks:delete' task.id %}">
+            <button type="button" class="btn btn-danger">Delete</button>
+        </a>
+    </div>
+
+    <div class="mt-2">
+        <a href="{% url 'tasks:index' %}">
+            <button type="button" class="btn btn-success">Return to index</button>
+        </a>
+    </div>
+
 </div>
 {% endblock %}

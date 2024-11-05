@@ -1,0 +1,46 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="m-5">
+
+    <h2>New Task</h2>
+
+    {% if errors %}
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form action="{% url 'tasks:create' %}" method="post">
+        {% csrf_token %}
+
+        <div class="input-group input-group-lg mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Title</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="title" name="title" value="{{task.title}}">
+        </div>
+
+        <div class="input-group input-group-lg mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Description</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="description" name="description" value="{{task.description}}">
+        </div>
+
+        <div class="input-group input-group-lg mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Email</span>
+            </div>
+            <input type="email" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="email" name="email" value="{{task.email}}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+
+    </form>
+</div>
+{% endblock %}
