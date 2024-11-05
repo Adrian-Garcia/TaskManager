@@ -1,0 +1,23 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+<div class="m-5">
+  <header class="d-flex justify-content-between">
+    <h1 class="mb-5">Tareas disponibles</h1>
+  </header>
+  <main>
+    {% if tasks %}
+      <div class="mb-4">
+      {% for task in tasks %}
+          <h5>{{task.title}}</h5>
+          <p>{{task.description}}</p>
+          <p>by: {{task.email}}</p>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <p>No hay tareas por hacer</p>
+    {% endif %}
+  </main>
+</div>
+{% endblock %}
