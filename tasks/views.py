@@ -81,7 +81,7 @@ def delete(request, task_id: int) -> HttpResponseRedirect:
     return HttpResponseRedirect(reverse("tasks:index"))
 
 
-# ex: GET /api/tasks
+# ex: GET /api/tasks/
 @api_view(["GET"])
 def get_tasks(request):
     tasks = Task.objects.all()
@@ -89,37 +89,31 @@ def get_tasks(request):
     return Response(serializer.data)
 
 
-# ex: POST /api/tasks
+# ex: POST /api/tasks/post/
 @api_view(["POST"])
 def create_task(request):
-    print("======== 0 ========")
-
-    if not request.data.get("title") or not request.data.get("description"):
+    if (
+        not request.data.get("title")
+        or not request.data.get("description")
+        or not request.data.get("email")
+    ):
         return Response(
-            {"error": "Both title and description are required."},
+            {"error": "Title, description and email are required."},
             status=status.HTTP_400_BAD_REQUEST,
         )
-    print("======== 1 ========")
 
     serializer = TaskSerializer(data=request.data)
-    print("======== 2 ========")
     if serializer.is_valid():
-        print("======== 3 ========")
         serializer.save()
-        print("======== 4 ========")
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    print("======== 5 ========")
+
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# ex: PUT /api/tasks/1
+# ex: PUT /api/tasks/1/
 @api_view(["PUT"])
 def update_task(request, task_id):
-    try:
-        task = Task.objects.get(id=task_id)
-    except Task.DoesNotExist:
-        return Response({"error": "Task not found."}, status=status.HTTP_404_NOT_FOUND)
-
+    task = get_object_or_404(Task, pk=task_id)
     serializer = TaskSerializer(
         task, data=request.data, partial=True
     )  # 'partial=True' for partial updates
@@ -129,14 +123,10 @@ def update_task(request, task_id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# ex: DELETE /api/tasks/1
+# ex: DELETE /api/tasks/delete/1/
 @api_view(["DELETE"])
 def delete_task(request, task_id):
-    try:
-        task = Task.objects.get(id=task_id)
-    except Task.DoesNotExist:
-        return Response({"error": "Task not found."}, status=status.HTTP_404_NOT_FOUND)
-
+    task = get_object_or_404(Task, pk=task_id)
     task.delete()
     return Response(
         {"message": "Task deleted successfully."}, status=status.HTTP_204_NO_CONTENT

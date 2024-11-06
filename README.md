@@ -31,10 +31,8 @@ Start local server
 python3 manage.py runserver
 ```
 
-Code formatter
-```
-python3 -m black .
-```
+# User interface
+After starting local server, you can go to http://127.0.0.1:8000/tasks/ and start creatring tasks.
 
 # API
 
@@ -91,14 +89,14 @@ Example response:
 
 ---
 
-### 2. **POST /api/tasks**
+### 2. **POST /api/tasks/post**
 
 Create a new task.
 
 #### Request
 
 - **Method**: `POST`
-- **URL**: `/api/tasks/`
+- **URL**: `/api/tasks/post/`
 - **Headers**:
   - `Content-Type: application/json`
 - **Body**:
@@ -176,14 +174,14 @@ Example response:
 
 ---
 
-### 4. **DELETE /api/tasks/{id}**
+### 4. **DELETE /api/tasks/delete/{id}**
 
 Delete a task by its ID.
 
 #### Request
 
 - **Method**: `DELETE`
-- **URL**: `/api/tasks/{id}/`  
+- **URL**: `/api/tasks/delete/{id}/`  
   Replace `{id}` with the ID of the task you want to delete.
 
 #### Response

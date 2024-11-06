@@ -27,12 +27,12 @@ urlpatterns = [
     path("tasks/update/<int:task_id>/", update, name="update"),
     # ex: /tasks/delete/1/
     path("tasks/delete/<int:task_id>/", delete, name="delete"),
-    # ex: GET /api/tasks
+    # ex: GET /api/tasks/
     path("api/tasks/", get_tasks, name="get_tasks"),
-    # ex: POST /api/tasks
-    path("api/tasks/", create_task, name="create_task"),
-    # ex: PUT /api/tasks/1
+    # ex: POST /api/tasks/post/
+    path("api/tasks/post/", create_task, name="create_task"),
+    # ex: PUT /api/tasks/1/
     path("api/tasks/<int:task_id>/", update_task, name="update_task"),
-    # ex: DELETE /api/tasks/1
-    path("api/tasks/<int:task_id>/", delete_task, name="delete_task"),
+    # ex: DELETE /api/tasks/delete/1/
+    path("api/tasks/delete/<int:task_id>/", delete_task, name="delete_task"),
 ]
