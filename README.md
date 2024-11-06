@@ -7,7 +7,7 @@ pip install django
 ```
 
 Install djangorestframework to use the api
-```bash
+```
 pip install django djangorestframework
 ```
 
@@ -29,6 +29,11 @@ python3 manage.py migrate
 Start local server
 ```
 python3 manage.py runserver
+```
+
+Code formatter
+```
+python3 -m black .
 ```
 
 # API
